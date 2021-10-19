@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
+#include <stack>
 #include <vector>
 #include <string>
 using namespace std;
@@ -17,15 +18,40 @@ using namespace std;
 vector<vector<int> > create_maze(string filename);
 void print(vector<vector<int> > array);
 
+struct position
+{
+    int x, y, dir;
+};
+
+struct offsets
+{
+    int x, y;
+};
+
 int main()
 {
     string filename;
     vector<vector<int> > maze;
+    vector<vector<int> > visited;
+    const vector<offsets> move;
+    enum directions {E, S, N, W};
+    stack<position> path;
 
     cout << "enter filename : ";
     cin >> filename;
     maze = create_maze(filename);
     print(maze);
+
+    int x_start, y_start, x_end, y_end;
+    while (true)
+    {
+        cout << "enter start position : ";
+        cin >> x_start >> y_start;
+        if ((x_start == -1) && (y_start == -1)) { break; }
+        cout << "enter exit position : ";
+        cin >> x_end >> y_end;
+        if ((x_end == -1) && (y_end == -1)) { break; }
+    }
 
     return 0;
 }
