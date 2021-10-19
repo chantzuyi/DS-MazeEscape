@@ -9,44 +9,59 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
+#include <vector>
 #include <string>
+using namespace std;
 
 #define SIZE 17
+vector<vector<int> > create_maze(string filename);
+void print(vector<vector<int> > array);
 
 int main()
 {
-    std::string filename;
-    int maze[SIZE][SIZE];
+    string filename;
+    vector<vector<int> > maze;
 
-    std::cout << "enter filename : ";
-    std::cin >> filename;
-    std::ifstream inFile(filename, std::ios::in);
+    cout << "enter filename : ";
+    cin >> filename;
+    maze = create_maze(filename);
+    print(maze);
 
+    return 0;
+}
+
+vector<vector<int> > create_maze(string filename)
+{
+    vector<vector<int> > maze(SIZE);
+    string line;
+    int row = 0;
+
+    ifstream inFile(filename, ios::in);
     if (!inFile)
     {
-        std::cerr << "Failed to open " << filename << std::endl;
+        cerr << "Failed to open " << filename << endl;
         exit(1);
     }
-
-    std::string line;
-    int row = 0;
     while (getline(inFile, line))
     {
-        for (int i = 0; i < SIZE - 1; ++i)
+        for (int i = 0; i < SIZE; ++i)
         {
-            maze[row][i] = line.at(i) - '0';  // convert char to int
+            maze.at(row).push_back(line.at(i) - '0');  // convert char to int
         }
         row++;
     }
 
-    for (int i = 0; i < SIZE - 1; ++i)
-    {
-        for (int j = 0; j < SIZE - 1; ++j)
-        {
-            std::cout << maze[i][j];
-        }
-        std::cout << std::endl;
-    }
+    return maze;
+}
 
-    return 0;
+void print(vector<vector<int> > array)
+{
+    for (int i = 0; i < SIZE; ++i)
+    {
+        for (int j = 0; j < SIZE; ++j)
+        {
+            cout << array[i][j];
+        }
+        cout << endl;
+    }
 }
