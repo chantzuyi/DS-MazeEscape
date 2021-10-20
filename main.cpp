@@ -14,10 +14,10 @@
 #include <string>
 using namespace std;
 
-#define SIZE 17
 vector<vector<bool> > create_maze(string filename);
 void print(vector<vector<bool> > array);
 
+const int SIZE = 17;
 struct position
 {
     int x, y, dir;
@@ -42,7 +42,7 @@ int main()
     maze = create_maze(filename);
     print(maze);
 
-    int x_start, y_start, x_exit, y_exit;
+    int x_start, y_start, x_exit, y_exit, count;
     while (true)
     {
         // user input
@@ -61,6 +61,8 @@ int main()
         {
             path.pop();
         }
+        count = 0;
+
         // initialize starting point
         position current = {x_start, y_start, E};
         path.push(current);
@@ -71,14 +73,18 @@ int main()
         {
             current = path.top();
             path.pop();
+            cout << count++ << ":" << current.x << "," << current.y << endl;
             while (current.dir <= W)
             {
                 int x_goto = current.x + move[current.dir].x;
                 int y_goto = current.y + move[current.dir].y;
+                // cout << "x_goto: " << x_goto << ", y_goto: " << y_goto << " ";
+                // cout << "current: " << current.x << "," << current.y << endl;
 
                 if ((x_goto == x_exit) && (y_goto == y_exit))
                 {
-                    cout << "Successfully escaped!!" << endl;
+                    cout << count << ":" << x_goto << "," << y_goto << endl;
+                    cout << "successfully escaped!!" << endl;
                     goto endProblem;
                 }
 
@@ -90,6 +96,7 @@ int main()
                     current.y = y_goto;
                     current.dir = E;
                     visited[x_goto][y_goto] = true;
+                    cout << count++ << ":" << current.x << "," << current.y << endl;
                 }
                 else current.dir++;
             }
@@ -98,7 +105,7 @@ int main()
 
         endProblem: ;
     }
-    cout << "End of code.";
+    cout << "end the code.";
 
     return 0;
 }
