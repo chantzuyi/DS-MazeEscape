@@ -14,10 +14,9 @@
 #include <string>
 using namespace std;
 
-vector<vector<bool> > create_maze(string filename);
-void print(vector<vector<bool> > array);
 
 const int SIZE = 17;
+
 struct position
 {
     int x, y, dir;
@@ -27,6 +26,9 @@ struct offsets
 {
     int x, y;
 };
+
+vector<vector<bool> > create_maze(string filename);
+void print(const vector<vector<bool> > array);
 
 int main()
 {
@@ -54,8 +56,8 @@ int main()
         if ((x_exit == -1) && (y_exit == -1)) { break; }
 
         // clear data structures
-        for (auto& sub : visited) {
-            fill(sub.begin(), sub.end(), 0);
+        for (auto &row : visited) {
+            fill(row.begin(), row.end(), 0);
         }
         while (!path.empty())
         {
@@ -78,8 +80,6 @@ int main()
             {
                 int x_goto = current.x + move[current.dir].x;
                 int y_goto = current.y + move[current.dir].y;
-                // cout << "x_goto: " << x_goto << ", y_goto: " << y_goto << " ";
-                // cout << "current: " << current.x << "," << current.y << endl;
 
                 if ((x_goto == x_exit) && (y_goto == y_exit))
                 {
@@ -134,13 +134,13 @@ vector<vector<bool> > create_maze(string filename)
     return maze;
 }
 
-void print(vector<vector<bool> > array)
+void print(const vector<vector<bool> > array)
 {
-    for (int i = 0; i < SIZE; ++i)
+    for (auto row : array)
     {
-        for (int j = 0; j < SIZE; ++j)
+        for (auto elem : row)
         {
-            cout << array[i][j];
+            cout << elem;
         }
         cout << endl;
     }
