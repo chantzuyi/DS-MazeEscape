@@ -100,28 +100,28 @@ int main()
             while (current.dir <= W)
             {
                 // Explore the next tile in the direction.
-                int x_goto = current.x + move[current.dir].x;
-                int y_goto = current.y + move[current.dir].y;
+                int x_next = current.x + move[current.dir].x;
+                int y_next = current.y + move[current.dir].y;
 
                 // The next tile is the exit.
-                if ((x_goto == x_exit) && (y_goto == y_exit))
+                if ((x_next == x_exit) && (y_next == y_exit))
                 {
-                    cout << step_count << ":" << x_goto << "," << y_goto << endl;
+                    cout << step_count << ":" << x_next << "," << y_next << endl;
                     cout << "successfully escaped!!" << endl;
                     goto endProblem;
                 }
 
                 // The next tile has not been visited, move to that tile.
-                if ((!maze[x_goto][y_goto]) && (!visited[x_goto][y_goto]))
+                if ((!maze[x_next][y_next]) && (!visited[x_next][y_next]))
                 {
                     current.dir += 1;  // record next direction to explore should the rat backtrack
                     path.push(current);  // write current position to path
 
                     // Move rat to the next tile.
-                    current.x = x_goto;
-                    current.y = y_goto;
+                    current.x = x_next;
+                    current.y = y_next;
                     current.dir = E;
-                    visited[x_goto][y_goto] = true;
+                    visited[x_next][y_next] = true;
                     cout << step_count++ << ":" << current.x << "," << current.y << endl;
                 }
 
