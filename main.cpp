@@ -100,28 +100,28 @@ int main()
             while (current.dir <= W)
             {
                 // Explore the neighbor cell in the direction.
-                int x_next = current.x + move[current.dir].x;
-                int y_next = current.y + move[current.dir].y;
+                int x_neighbor = current.x + move[current.dir].x;
+                int y_neighbor = current.y + move[current.dir].y;
 
                 // The neighbor cell is the exit.
-                if ((x_next == x_exit) && (y_next == y_exit))
+                if ((x_neighbor == x_exit) && (y_neighbor == y_exit))
                 {
-                    cout << step_count << ":" << x_next << "," << y_next << endl;
+                    cout << step_count << ":" << x_neighbor << "," << y_neighbor << endl;
                     cout << "successfully escaped!!" << endl;
                     goto endProblem;
                 }
 
                 // The neighbor cell has not been visited, move to that cell.
-                if ((!maze[x_next][y_next]) && (!visited[x_next][y_next]))
+                if ((!maze[x_neighbor][y_neighbor]) && (!visited[x_neighbor][y_neighbor]))
                 {
                     current.dir += 1;  // record next direction to explore should the rat backtrack
                     path.push(current);  // write current position to path
 
                     // Move rat to the neighbor cell.
-                    current.x = x_next;
-                    current.y = y_next;
+                    current.x = x_neighbor;
+                    current.y = y_neighbor;
                     current.dir = E;
-                    visited[x_next][y_next] = true;
+                    visited[x_neighbor][y_neighbor] = true;
                     cout << step_count++ << ":" << current.x << "," << current.y << endl;
                 }
 
