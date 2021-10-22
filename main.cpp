@@ -88,9 +88,9 @@ int main()
          * b) all tiles were visited,
          *    i.e. the rat has backtracked to its starting position.
          */
-        while (!path.empty()) // while there is still room to backtrack
+        while (!path.empty()) // while there are still unvisited tiles
         {
-            // Backtrack one step if no advances are possible. (except for the 1st step)
+            // Pop the foremost tile on the solution path and explore its neighbors.
             current = path.top();
             path.pop();
             cout << step_count++ << ":" << current.x << "," << current.y << endl;
@@ -99,11 +99,11 @@ int main()
             // Will continuously loop forward if an unvisited tile was found.
             while (current.dir <= W)
             {
-                // Explore the next tile in the direction.
+                // Explore the neighbor tile in the direction.
                 int x_next = current.x + move[current.dir].x;
                 int y_next = current.y + move[current.dir].y;
 
-                // The next tile is the exit.
+                // The neighbor tile is the exit.
                 if ((x_next == x_exit) && (y_next == y_exit))
                 {
                     cout << step_count << ":" << x_next << "," << y_next << endl;
@@ -111,13 +111,13 @@ int main()
                     goto endProblem;
                 }
 
-                // The next tile has not been visited, move to that tile.
+                // The neighbor tile has not been visited, move to that tile.
                 if ((!maze[x_next][y_next]) && (!visited[x_next][y_next]))
                 {
                     current.dir += 1;  // record next direction to explore should the rat backtrack
                     path.push(current);  // write current position to path
 
-                    // Move rat to the next tile.
+                    // Move rat to the neighbor tile.
                     current.x = x_next;
                     current.y = y_next;
                     current.dir = E;
@@ -125,9 +125,10 @@ int main()
                     cout << step_count++ << ":" << current.x << "," << current.y << endl;
                 }
 
-                // The next tile has been visited or is a wall.
+                // The neighbor tile has been visited or is a wall.
                 else current.dir++;  // turn to the next direction
             }
+            // The current tile is a dead end.
         }
 
         // All tiles were visited but could not reach the exit.
