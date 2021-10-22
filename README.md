@@ -15,11 +15,11 @@ $ make
 ```
 If you are using `gcc 4.8.1` or above, manually enter the command below
 ```
-$ gcc -o rat rat.cpp -std=c++11
+$ gcc -o main main.cpp -std=c++11
 ```
-Finally, run `rat` with
+Finally, run `main` with
 ```
-$ ./rat
+$ ./main
 ```
 
 ## Program Structure
