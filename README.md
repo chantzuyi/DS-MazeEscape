@@ -1,4 +1,4 @@
-# Homework 1: Rat in a Maze
+# Rat in a Maze
 * contributed by < `詹子毅 F04066028` >
 * course: [NCKU Data Structures 2021](http://class-qry.acad.ncku.edu.tw/syllabus/online_display.php?syear=0110&sem=1&co_no=F720300&class_code=2)
 * course instructor: Prof. Tseng, Fan-Hsun
@@ -20,4 +20,38 @@ $ gcc -o rat rat.cpp -std=c++11
 Finally, run `rat` with
 ```
 $ ./rat
+```
+
+## Program Structure
+```javascript    
+initialize 2D array MAZE  // user input
+initialize stack PATH     // solution path
+
+while user enters a problem
+{
+    set start & exit position
+    push start position into PATH
+
+    while there are still unvisited cells
+    {
+        pop current position from PATH
+
+        while there is an unexplored neighbor
+        {
+            if neighbor is the exit
+            {
+                "Successfully escaped!!"
+                // back to first while loop
+            }
+            if the neighbor is an unvisited cell
+            {
+                push current position into PATH
+                let current position = neighbor position
+            }
+            else explore next neighbor
+        }
+        // current cell is a dead end
+    }
+    "Failed to escape."
+}
 ```
