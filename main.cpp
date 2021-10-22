@@ -17,7 +17,7 @@ using namespace std;
 
 const int SIZE = 17;
 
-struct position  // position format for each tile
+struct position  // position format for each cell
 {
     int x, y, dir;  // row, column, direction (enum directions)
 };
@@ -34,7 +34,7 @@ int main()
 {
     string filename;
     vector<vector<bool> > maze;
-    vector<vector<bool> > visited(SIZE, vector<bool> (SIZE)); // visited tiles
+    vector<vector<bool> > visited(SIZE, vector<bool> (SIZE)); // visited cells
     stack<position> path;  // escape path from start to exit
     enum directions {E, S, N, W};
     const vector<offsets> move = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};  // position change
@@ -83,27 +83,27 @@ int main()
 
         /*
          * Maze escape algorithm.
-         * Will continually search for an unvisited tile torwards the exit until:
+         * Will continually search for an unvisited cell torwards the exit until:
          * a) the exit is reached
-         * b) all tiles were visited,
+         * b) all cells were visited,
          *    i.e. the rat has backtracked to its starting position.
          */
-        while (!path.empty()) // while there are still unvisited tiles
+        while (!path.empty()) // while there are still unvisited cells
         {
-            // Pop the foremost tile on the solution path and explore its neighbors.
+            // Pop the foremost cell on the solution path and explore its neighbors.
             current = path.top();
             path.pop();
             cout << step_count++ << ":" << current.x << "," << current.y << endl;
 
-            // Explore tiles in the order of direction: E, S, N, W.
-            // Will continuously loop forward if an unvisited tile was found.
+            // Explore cells in the order of direction: E, S, N, W.
+            // Will continuously loop forward if an unvisited cell was found.
             while (current.dir <= W)
             {
-                // Explore the neighbor tile in the direction.
+                // Explore the neighbor cell in the direction.
                 int x_next = current.x + move[current.dir].x;
                 int y_next = current.y + move[current.dir].y;
 
-                // The neighbor tile is the exit.
+                // The neighbor cell is the exit.
                 if ((x_next == x_exit) && (y_next == y_exit))
                 {
                     cout << step_count << ":" << x_next << "," << y_next << endl;
@@ -111,13 +111,13 @@ int main()
                     goto endProblem;
                 }
 
-                // The neighbor tile has not been visited, move to that tile.
+                // The neighbor cell has not been visited, move to that cell.
                 if ((!maze[x_next][y_next]) && (!visited[x_next][y_next]))
                 {
                     current.dir += 1;  // record next direction to explore should the rat backtrack
                     path.push(current);  // write current position to path
 
-                    // Move rat to the neighbor tile.
+                    // Move rat to the neighbor cell.
                     current.x = x_next;
                     current.y = y_next;
                     current.dir = E;
@@ -125,13 +125,13 @@ int main()
                     cout << step_count++ << ":" << current.x << "," << current.y << endl;
                 }
 
-                // The neighbor tile has been visited or is a wall.
+                // The neighbor cell has been visited or is a wall.
                 else current.dir++;  // turn to the next direction
             }
-            // The current tile is a dead end.
+            // The current cell is a dead end.
         }
 
-        // All tiles were visited but could not reach the exit.
+        // All cells were visited but could not reach the exit.
         cout << "Failed to escape." << endl;
         endProblem: ;
     }
@@ -142,7 +142,7 @@ int main()
 
 /*
  * Read maze text from file and convert it to a 2D vector.
- * The vector dimensions is SIZE * SIZE, with false(0) being walkable tiles
+ * The vector dimensions is SIZE * SIZE, with false(0) being walkable cells
  * and true(1) representing walls.
  */
 vector<vector<bool> > create_maze(string filename)
