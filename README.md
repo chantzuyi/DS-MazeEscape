@@ -15,12 +15,13 @@ $ make
 ```
 If you are using `gcc 4.8.1` or above, manually enter the command below
 ```
-$ gcc -o main main.cpp -std=c++11
+$ gcc -o main main.cpp -lstdc++
 ```
 Finally, run `main` with
 ```
 $ ./main
 ```
+Make sure `maze.txt` is included in the same directory.
 
 ## Program Structure
 ```javascript    
