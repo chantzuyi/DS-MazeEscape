@@ -44,7 +44,7 @@ int main()
      * User input name of file that contains the maze problem.
      * The maze would be converted to a 2D vector then printed to console.
      */
-    cout << "enter filename : ";
+    cout << "Enter filename: ";
     cin >> filename;
     maze = create_maze(filename);
     print(maze);
@@ -59,10 +59,10 @@ int main()
          * User input starting position of the rat and exit position in the maze.
          */
         int x_start, y_start, x_exit, y_exit;
-        cout << "enter start position : ";
+        cout << "Enter start position: ";
         cin >> x_start >> y_start;
         if ((x_start == -1) && (y_start == -1)) { break; }  // enter (-1, -1) to exit
-        cout << "enter exit position : ";
+        cout << "Enter exit position: ";
         cin >> x_exit >> y_exit;
         if ((x_exit == -1) && (y_exit == -1)) { break; }
 
@@ -107,7 +107,7 @@ int main()
                 if ((x_neighbor == x_exit) && (y_neighbor == y_exit))
                 {
                     cout << step_count << ":" << x_neighbor << "," << y_neighbor << endl;
-                    cout << "successfully escaped!!" << endl;
+                    cout << "Successfully escaped!" << endl;
                     goto endProblem;
                 }
 
@@ -135,7 +135,7 @@ int main()
         cout << "Failed to escape." << endl;
         endProblem: ;
     }
-    cout << "end the code.";
+    cout << "End of code.";
 
     return 0;
 }
